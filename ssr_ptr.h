@@ -2,9 +2,9 @@
 #define	ssr_ptr_h
 #include<bits/stdc++.h>
 namespace yt{
-template<class T>
+template<class ty>
 class ssr_ptr{
-	T *x;
+	ty *x;
 public:
 	ssr_ptr(void);
 	ssr_ptr(ssr_ptr&)=delete;
@@ -19,24 +19,24 @@ public:
 	void remove(void);
 	auto empty(void)->bool;
 	auto is_valid(void)->bool;
-	auto operator->(void)->T*;
-	auto operator->(void)const->const T*;
+	auto operator->(void)->ty*;
+	auto operator->(void)const->const ty*;
 };
-template<class T>
-ssr_ptr<T>::ssr_ptr(void){
+template<class ty>
+ssr_ptr<ty>::ssr_ptr(void){
 	x=nullptr;
 }
-template<class T>
-ssr_ptr<T>::ssr_ptr(ssr_ptr &&y){
+template<class ty>
+ssr_ptr<ty>::ssr_ptr(ssr_ptr &&y){
 	x=y.x;
 	y.x=nullptr;
 }
-template<class T>
-ssr_ptr<T>::~ssr_ptr(void){
+template<class ty>
+ssr_ptr<ty>::~ssr_ptr(void){
 	remove();
 }
-template<class T>
-auto	ssr_ptr<T>::operator=(ssr_ptr &&y)->ssr_ptr&{
+template<class ty>
+auto	ssr_ptr<ty>::operator=(ssr_ptr &&y)->ssr_ptr&{
 	if(this==&y)
 		return *this;
 	remove();
@@ -44,33 +44,33 @@ auto	ssr_ptr<T>::operator=(ssr_ptr &&y)->ssr_ptr&{
 	y.x=nullptr;
 	return *this;
 }
-template<class T>
+template<class ty>
 template<class...args>
-void	ssr_ptr<T>::make(args&&...arg){
+void	ssr_ptr<ty>::make(args&&...arg){
 	remove();
-	x=new T(std::forward<args>(arg)...);
+	x=new ty(std::forward<args>(arg)...);
 }
-template<class T>
-void	ssr_ptr<T>::remove(void){
+template<class ty>
+void	ssr_ptr<ty>::remove(void){
 	if(x==nullptr)
 		return;
 	delete x;
 	x=nullptr;
 }
-template<class T>
-auto	ssr_ptr<T>::empty(void)->bool{
+template<class ty>
+auto	ssr_ptr<ty>::empty(void)->bool{
 	return x==nullptr;
 }
-template<class T>
-auto	ssr_ptr<T>::is_valid(void)->bool{
+template<class ty>
+auto	ssr_ptr<ty>::is_valid(void)->bool{
 	return x!=nullptr;
 }
-template<class T>
-auto	ssr_ptr<T>::operator->(void)->T*{
+template<class ty>
+auto	ssr_ptr<ty>::operator->(void)->ty*{
 	return x;
 }
-template<class T>
-auto	ssr_ptr<T>::operator->(void)const->const T*{
+template<class ty>
+auto	ssr_ptr<ty>::operator->(void)const->const ty*{
 	return x;
 }
 }
