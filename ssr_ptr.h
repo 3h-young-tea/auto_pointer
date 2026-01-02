@@ -15,8 +15,8 @@ public:
 	auto operator=(const tea&)=delete;
 	auto operator=(tea&&);
 	template<class...args>
-	void make(args&&...);
-	void remove(void);
+	void push(args&&...);
+	void pop(void);
 	auto empty(void);
 	auto is_valid(void);
 	auto operator->(void);
@@ -32,25 +32,25 @@ tea<ty>::tea(tea &&y){
 }
 template<class ty>
 tea<ty>::~tea(void){
-	remove();
+	pop();
 }
 template<class ty>
 auto	tea<ty>::operator=(tea &&y){
 	if(this==&y)
 		return *this;
-	remove();
+	pop();
 	x=y.x;
 	y.x=nullptr;
 	return is_valid();
 }
 template<class ty>
 template<class...args>
-void	tea<ty>::make(args&&...arg){
-	remove();
+void	tea<ty>::push(args&&...arg){
+	pop();
 	x=new ty(std::forward<args>(arg)...);
 }
 template<class ty>
-void	tea<ty>::remove(void){
+void	tea<ty>::pop(void){
 	if(x==nullptr)
 		return;
 	delete x;
