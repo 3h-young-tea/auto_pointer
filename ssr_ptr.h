@@ -37,7 +37,7 @@ tea<ty>::~tea(void){
 template<class ty>
 auto	tea<ty>::operator=(tea &&y){
 	if(this==&y)
-		return *this;
+		return 0;
 	pop();
 	x=y.x;
 	y.x=nullptr;
